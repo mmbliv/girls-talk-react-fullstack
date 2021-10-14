@@ -1,19 +1,18 @@
 import express from "express";
 import {
   getPosts,
-  getPost,
+  // getPost,
   createPost,
   updatePost,
-  likePost,
+  // likePost,
   deletePost,
 } from "../controller/posts.js";
-// import {
-//   getComment,
-//   createComment,
-//   deleteComment,
-// } from "../controller/comment.js";
+import { createComment, deleteComment } from "../controller/comment.js";
 const router = express.Router();
 router.route("/").get(getPosts).post(createPost);
-router.route("/:id").patch(updatePost).delete(deletePost).get(getPost);
-router.patch("/:id/likepost", likePost);
+router.route("/:id").patch(updatePost).delete(deletePost);
+// router.patch("/:id/likepost", likePost);
+router.route("/:id/createcomment").patch(createComment);
+// router.patch("/:id/createcomment", createComment);
+router.delete("/:id/deletecomment", deleteComment);
 export default router;
