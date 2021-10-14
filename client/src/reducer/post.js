@@ -3,7 +3,9 @@ import {
   CREATE,
   UPDATE,
   DELETE,
-  LIKE,
+  // LIKE,
+  CREATECOMMENT,
+  DELETECOMMENT,
 } from "../constance/actionTypes";
 const reducer = (posts = [], action) => {
   switch (action.type) {
@@ -20,10 +22,24 @@ const reducer = (posts = [], action) => {
         }
         return item;
       });
-    case LIKE:
-      return posts.map((item) =>
-        item._id === action.payload._id ? action.payload : item
-      );
+    // case LIKE:
+    //   return posts.map((item) =>
+    //     item._id === action.payload._id ? action.payload : item
+    //   );
+    case CREATECOMMENT:
+      return posts.map((item) => {
+        if (item._id === action.payload._id) {
+          item.comments = action.payload.comments;
+        }
+        return item;
+      });
+    case DELETECOMMENT:
+      return posts.map((item) => {
+        if (item._id === action.payload._id) {
+          item.comments = action.payload.comments;
+        }
+        return item;
+      });
     default:
       return posts;
   }

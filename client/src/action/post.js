@@ -4,8 +4,26 @@ import {
   CREATE,
   UPDATE,
   DELETE,
-  LIKE,
+  // LIKE,
+  CREATECOMMENT,
+  DELETECOMMENT,
 } from "../constance/actionTypes";
+export const createComment = (id, newComment) => async (dispatch) => {
+  try {
+    const { data } = await API.createComment(id, newComment);
+    dispatch({ type: CREATECOMMENT, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const deleteComment = (id, deleteCommentID) => async (dispatch) => {
+  try {
+    const { data } = await API.deleteComment(id, deleteCommentID);
+    dispatch({ type: DELETECOMMENT, payload: data });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 export const getPosts = () => async (dispatch) => {
   try {
     const { data } = await API.fetchPosts();
