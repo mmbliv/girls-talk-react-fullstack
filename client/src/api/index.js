@@ -11,5 +11,5 @@ export const updatePost = (id, updatePost) =>
 export const createComment = (id, newComment) =>
   axios.patch(`${url}/${id}/createcomment`, newComment);
 export const deleteComment = (id, deleteCommentID) => {
-  axios.delete(`${url}/${id}/deletecomment`, deleteCommentID);
+  axios.delete(`${url}/${id}/deletecomment`, { data: { deleteCommentID } });
 };

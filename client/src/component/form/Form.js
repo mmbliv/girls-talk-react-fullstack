@@ -92,7 +92,7 @@ export const Form = ({ setCurrentID, currentID, posts }) => {
   return (
     <Paper elevation={3} sx={{ maxWidth: 550, my: 1, mx: "auto" }}>
       <Box sx={{ maxWidth: 400, my: 1, mx: "auto" }}>
-        <form noValidate onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
+        <form onSubmit={handleSubmit}>
           <TextField
             label="make a name"
             margin="normal"

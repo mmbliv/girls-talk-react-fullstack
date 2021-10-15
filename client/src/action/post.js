@@ -61,11 +61,11 @@ export const createPost = (newPost) => async (dispatch) => {
     console.log(error.message);
   }
 };
-export const likePost = (id) => async (dispatch) => {
-  try {
-    const { data } = await API.likePost(id);
-    dispatch({ type: LIKE, payload: data });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+// export const likePost = (id) => async (dispatch) => {
+//   try {
+//     const { data } = await API.likePost(id);
+//     dispatch({ type: LIKE, payload: data });
+//   } catch (error) {
+//     console.log(error.message);
+//   }
+// };

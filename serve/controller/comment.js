@@ -23,8 +23,15 @@ export const createComment = async (req, res) => {
 
 export const deleteComment = async (req, res) => {
   const commentData = await postInfo.findById({ _id: req.params.id });
-  commentData.comments.pull(req.body.id);
+
+  console.log(commentData.comments);
+  console.log(req.body.deleteCommentID);
+  const dataAfterDelete = await commentData.comments.pull({
+    body: req.body.dele,
+    _id: req.body.deleteCommentID,
+  });
+  await dataAfterDelete.save();
   // const deletecomment=commentData.comments.find((item)=>{item._id===req.body._id})
   // deleteComment.comments._id.remove();
-  res.status(200).json({ commentData });
+  res.status(200).json({ dataAfterDelete });
 };

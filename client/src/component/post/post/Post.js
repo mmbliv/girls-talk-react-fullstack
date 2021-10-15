@@ -4,22 +4,35 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  InputBase,
   Typography,
-} from "@material-ui/core/";
+  Button,
+  CardHeader,
+  Container,
+  IconButton,
+  Box,
+  Drawer,
+  TextField,
+} from "@mui/material";
 import DeleteOutlineRoundedIcon from "@mui/icons-material/DeleteOutlineRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import Avatar from "@mui/material/Avatar";
 import base64 from "react-native-base64";
-import { CardHeader, IconButton } from "@mui/material";
+
 import moment from "moment";
 import { deletePost } from "../../../action/post";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
+import { Comment } from "../../Comment";
+import { createComment, deleteComment } from "../../../action/post";
 
 export const Post = ({ post, setCurrentID, currentID }) => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [comment, setComment] = useState({ body: "", _id: "" });
+  const [toggleComment, setToggleComment] = useState(false);
+  console.log(comment);
 
   const deleteAndReload = () => {
     dispatch(deletePost(post._id));
@@ -27,6 +40,16 @@ export const Post = ({ post, setCurrentID, currentID }) => {
   const editePost = () => {
     setCurrentID(post._id);
     history.push("/creat");
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(comment);
+    dispatch(createComment(post._id, comment));
+    setComment({ body: "", _id: "" });
+    setToggleComment(false);
+  };
+  const deleteCommentBtn = (postID, commentID) => {
+    dispatch(deleteComment(postID, commentID));
   };
 
   return (
@@ -67,13 +90,41 @@ export const Post = ({ post, setCurrentID, currentID }) => {
         >
           <EditRoundedIcon />
         </IconButton>
-        <IconButton size="small">
+        <IconButton size="small" onClick={() => setToggleComment(true)}>
           <MessageRoundedIcon />
         </IconButton>
-        <CardContent>
-          <Typography></Typography>
-        </CardContent>
       </CardActions>
+
+      <Drawer
+        onClose={() => setToggleComment(false)}
+        onOpen={() => setToggleComment(true)}
+        open={toggleComment}
+        variant="temporary"
+        anchor="bottom"
+      >
+        <Box component="form" onSubmit={handleSubmit}>
+          <TextField
+            multiline
+            minRows={5}
+            value={comment.body}
+            onChange={(e) => {
+              setComment({ body: e.target.value, _id: "" });
+            }}
+            sx={{ width: "100%", height: "100%" }}
+          />
+          <Button
+            type="submit"
+            variant="text"
+            sx={{ position: "absolute", right: 3, bottom: 2 }}
+          >
+            submit
+          </Button>
+        </Box>
+      </Drawer>
+
+      <Container>
+        <Comment post={post} deleteCommentBtn={deleteCommentBtn} />
+      </Container>
     </Card>
   );
 };
