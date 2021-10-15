@@ -10,6 +10,7 @@ import {
 const reducer = (posts = [], action) => {
   switch (action.type) {
     case FETCH_ALL:
+      console.log("fetch");
       return action.payload;
     case CREATE:
       return [...posts, action.payload];
@@ -31,12 +32,15 @@ const reducer = (posts = [], action) => {
         if (item._id === action.payload._id) {
           item.comments = action.payload.comments;
         }
+
         return item;
       });
     case DELETECOMMENT:
       return posts.map((item) => {
-        if (item._id === action.payload._id) {
-          item.comments = action.payload.comments;
+        if (item._id === action.payload.id) {
+          item.comments = item.comments.filter(
+            (com) => com._id !== action.payload.deleteCommentID
+          );
         }
         return item;
       });

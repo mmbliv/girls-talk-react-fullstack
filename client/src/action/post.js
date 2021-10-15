@@ -11,15 +11,17 @@ import {
 export const createComment = (id, newComment) => async (dispatch) => {
   try {
     const { data } = await API.createComment(id, newComment);
-    dispatch({ type: CREATECOMMENT, payload: data });
+    dispatch({ type: CREATECOMMENT, payload: data.commentData });
+    console.log(data);
   } catch (error) {
     console.log(error.message);
   }
 };
 export const deleteComment = (id, deleteCommentID) => async (dispatch) => {
   try {
-    const { data } = await API.deleteComment(id, deleteCommentID);
-    dispatch({ type: DELETECOMMENT, payload: data });
+    await API.deleteComment(id, deleteCommentID);
+    dispatch({ type: DELETECOMMENT, payload: { id, deleteCommentID } });
+    console.log("deleCom");
   } catch (error) {
     console.log(error.message);
   }

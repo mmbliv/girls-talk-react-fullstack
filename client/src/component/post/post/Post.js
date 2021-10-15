@@ -30,9 +30,8 @@ import { createComment, deleteComment } from "../../../action/post";
 export const Post = ({ post, setCurrentID, currentID }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [comment, setComment] = useState({ body: "", _id: "" });
+  const [comment, setComment] = useState({ body: "" });
   const [toggleComment, setToggleComment] = useState(false);
-  console.log(comment);
 
   const deleteAndReload = () => {
     dispatch(deletePost(post._id));
@@ -43,9 +42,8 @@ export const Post = ({ post, setCurrentID, currentID }) => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(comment);
     dispatch(createComment(post._id, comment));
-    setComment({ body: "", _id: "" });
+    setComment({ body: "" });
     setToggleComment(false);
   };
   const deleteCommentBtn = (postID, commentID) => {
@@ -108,7 +106,7 @@ export const Post = ({ post, setCurrentID, currentID }) => {
             minRows={5}
             value={comment.body}
             onChange={(e) => {
-              setComment({ body: e.target.value, _id: "" });
+              setComment({ body: e.target.value });
             }}
             sx={{ width: "100%", height: "100%" }}
           />
@@ -121,10 +119,11 @@ export const Post = ({ post, setCurrentID, currentID }) => {
           </Button>
         </Box>
       </Drawer>
-
-      <Container>
-        <Comment post={post} deleteCommentBtn={deleteCommentBtn} />
-      </Container>
+      {post.comments && (
+        <Container>
+          <Comment post={post} deleteCommentBtn={deleteCommentBtn} />
+        </Container>
+      )}
     </Card>
   );
 };

@@ -3,7 +3,7 @@ const postSchema = mongoose.Schema({
   message: String,
   creator: String,
   selectedFile: String,
-  comments: [{ body: String, _id: mongoose.Types.ObjectId }],
+  comments: [{ body: String }],
   // likeCount: {
   //   type: Number,
   //   default: 0,

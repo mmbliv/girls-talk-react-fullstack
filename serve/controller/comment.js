@@ -14,7 +14,6 @@ export const createComment = async (req, res) => {
 
   commentData.comments.push({
     body: req.body.body,
-    _id: new mongoose.Types.ObjectId(),
   });
   await commentData.save();
 
@@ -24,14 +23,12 @@ export const createComment = async (req, res) => {
 export const deleteComment = async (req, res) => {
   const commentData = await postInfo.findById({ _id: req.params.id });
 
-  console.log(commentData.comments);
-  console.log(req.body.deleteCommentID);
-  const dataAfterDelete = await commentData.comments.pull({
-    body: req.body.dele,
+  commentData.comments.pull({
     _id: req.body.deleteCommentID,
   });
-  await dataAfterDelete.save();
+  await commentData.save();
+
   // const deletecomment=commentData.comments.find((item)=>{item._id===req.body._id})
   // deleteComment.comments._id.remove();
-  res.status(200).json({ dataAfterDelete });
+  res.status(200).json({ commentData });
 };
