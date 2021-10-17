@@ -11,14 +11,13 @@ export const Posts = ({ setCurrentID, currentID, posts }) => {
   // useEffect(() => {
   //   dispatch(getPosts());
   // }, [dispatch]);
-  console.log(posts);
 
   return !posts.length ? (
     <CircularProgress />
   ) : (
     <Paper sx={{ my: 1, mx: "auto", maxWidth: 550, bgcolor: "grey.50" }}>
       <Grid container justifyContent="center" alignItems="center">
-        {posts.map((post) => {
+        {posts.reverse().map((post) => {
           return (
             <Grid item xs={12} key={post._id} sx={{ py: 2, maxWidth: 450 }}>
               <Post

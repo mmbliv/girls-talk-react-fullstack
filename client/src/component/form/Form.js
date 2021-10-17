@@ -15,6 +15,8 @@ import { useDispatch } from "react-redux";
 import { Box } from "@material-ui/system";
 import base64 from "react-native-base64";
 import { Link } from "react-router-dom";
+import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import "./style.css";
 
 export const Form = ({ setCurrentID, currentID, posts }) => {
   // find the currentID post
@@ -132,12 +134,21 @@ export const Form = ({ setCurrentID, currentID, posts }) => {
           {picture && (
             <ImageListItem sx={{ height: 150, width: 150 }}>
               <img src={picture} alt="" sx={{ position: "relative" }} />
-              <IconButton
-                sx={{ position: "absolute", top: 1, left: 1 }}
-                onClick={() => clear()}
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 1,
+                  left: 1,
+                  bgcolor: "grey",
+                }}
               >
-                <HighlightOffIcon />
-              </IconButton>
+                <IconButton
+                  onClick={() => clear()}
+                  sx={{ borderRadius: "none" }}
+                >
+                  <HighlightOffIcon style={{ fontSize: "15px" }} />
+                </IconButton>
+              </Box>
             </ImageListItem>
           )}
           <Container
@@ -150,16 +161,16 @@ export const Form = ({ setCurrentID, currentID, posts }) => {
             <Button
               variant="contained"
               size="small"
-              sx={{ borderRadius: 3, border: 1, borderColor: "primary.main" }}
+              sx={{ borderRadius: 1, border: 1, borderColor: "primary.main" }}
               type="submit"
             >
               {currentID ? "UPDATA" : "SUBMIT"}
             </Button>
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"
                 size="small"
-                sx={{ borderRadius: 3, border: 1, borderColor: "primary.main" }}
+                sx={{ borderRadius: 1, border: 1, borderColor: "primary.main" }}
                 onClick={() => setCurrentID()}
               >
                 CANCLE

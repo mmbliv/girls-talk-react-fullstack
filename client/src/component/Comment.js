@@ -7,11 +7,12 @@ export const Comment = ({ post, deleteCommentBtn }) => {
     <>
       {post.comments.map((item) => {
         return (
-          <Paper key={item._id}>
+          <Paper key={item._id} sx={{ mb: 3, bgcolor: "grey.200" }}>
             <Container>
               <Typography>{item.body}</Typography>
             </Container>
             <IconButton
+              sx={{ ml: 45 }}
               onClick={() => {
                 deleteCommentBtn(post._id, item._id);
               }}

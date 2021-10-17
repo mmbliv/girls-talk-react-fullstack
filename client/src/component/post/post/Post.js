@@ -4,7 +4,6 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  InputBase,
   Typography,
   Button,
   CardHeader,
@@ -49,11 +48,25 @@ export const Post = ({ post, setCurrentID, currentID }) => {
   const deleteCommentBtn = (postID, commentID) => {
     dispatch(deleteComment(postID, commentID));
   };
+  function randomColor() {
+    let hex = Math.floor(Math.random() * 0xffffff);
+    let color = "#" + hex.toString(16);
+
+    return color;
+  }
 
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar sx={{ bgcolor: "warning.light" }}>R</Avatar>}
+        avatar={
+          <Avatar
+            style={{
+              backgroundColor: randomColor(),
+            }}
+          >
+            {post.creator ? post.creator[0].toUpperCase() : "XO"}
+          </Avatar>
+        }
         title={post.creator}
         subheader={moment(post.createdAt).fromNow()}
       />
@@ -66,11 +79,11 @@ export const Post = ({ post, setCurrentID, currentID }) => {
         />
       )}
       <CardContent>
-        <Typography variant="body2" color="secondary">
+        <Typography variant="h4" color="grey.700">
           {post.message}
         </Typography>
       </CardContent>
-      <CardActions>
+      <CardActions sx={{ display: "flex", justifyContent: "space-evenly" }}>
         <IconButton
           size="small"
           onClick={() => {
@@ -81,7 +94,6 @@ export const Post = ({ post, setCurrentID, currentID }) => {
         </IconButton>
         <IconButton
           size="small"
-          sx={{ px: 5 }}
           onClick={() => {
             editePost();
           }}
