@@ -12,7 +12,6 @@ export const createComment = (id, newComment) => async (dispatch) => {
   try {
     const { data } = await API.createComment(id, newComment);
     dispatch({ type: CREATECOMMENT, payload: data.commentData });
-    console.log(data);
   } catch (error) {
     console.log(error.message);
   }
@@ -21,7 +20,6 @@ export const deleteComment = (id, deleteCommentID) => async (dispatch) => {
   try {
     await API.deleteComment(id, deleteCommentID);
     dispatch({ type: DELETECOMMENT, payload: { id, deleteCommentID } });
-    console.log("deleCom");
   } catch (error) {
     console.log(error.message);
   }
@@ -38,7 +36,6 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await API.deletePost(id);
     dispatch({ type: DELETE, payload: id });
-    console.log("delete");
   } catch (error) {
     console.log(error.message);
   }
@@ -47,8 +44,6 @@ export const updatePost = (id, updatedPost) => async (dispatch) => {
   try {
     const { data } = await API.updatePost(id, updatedPost);
     dispatch({ type: UPDATE, payload: data.post });
-    console.log(data);
-    console.log("update");
   } catch (error) {
     console.log(error.message);
   }
@@ -57,8 +52,6 @@ export const createPost = (newPost) => async (dispatch) => {
   try {
     const { data } = await API.createPost(newPost);
     dispatch({ type: CREATE, payload: data.post });
-    console.log("create");
-    console.log(data);
   } catch (error) {
     console.log(error.message);
   }

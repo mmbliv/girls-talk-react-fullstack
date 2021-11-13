@@ -11,6 +11,9 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cors());
 // routes
 app.use("/posts", postRouter);
+app.get("/", (req, res) => {
+  res.send("hello my friend");
+});
 const PORT = process.env.PORT || 5000;
 const Start = async () => {
   try {
